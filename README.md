@@ -4,6 +4,8 @@ This is a small API wrapper that implements the basic CRUD methods.
 
 You can see examples in the main.go
 
+This package is used in [silverbullet-api-gateway](https://github.com/Mrton0121/silverbullet-api-gateway)
+
 # Examples
 ```go
 // Create client
