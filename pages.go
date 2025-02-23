@@ -21,6 +21,7 @@ type Page struct {
 	LastModified string
 	Name         string
 	Size         int
+	Content      string
 }
 
 type Pages struct {
@@ -94,12 +95,18 @@ func (client *SBClient) GetPages(skip bool, skipStrings ...string) (pages *Pages
 	// Convert RawPage to Page with formatted timestamps
 	pagesSlice := []Page{}
 	for _, rawPage := range rawPages {
+		data, err := client.Get(rawPage.Name)
+		if err != nil {
+			return nil, err
+		}
+
 		page := Page{
 			ContentType:  rawPage.ContentType,
 			Created:      formatTimestamp(rawPage.Created),
 			LastModified: formatTimestamp(rawPage.LastModified),
 			Name:         rawPage.Name,
 			Size:         rawPage.Size,
+			Content:      data,
 		}
 		pagesSlice = append(pagesSlice, page)
 	}
